@@ -1,0 +1,7 @@
+FROM inputoutput/cardano-node:latest
+
+WORKDIR /lovelace
+
+COPY ./config ./config
+
+ENTRYPOINT ["/bin/sh"]

@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CARDANO_NODE_SOCKET_PATH=/lovelace/data/node.socket
+    ports:
+      - 3001:3001
+    volumes:
+      - ./data:/lovelace/data
+    networks:
+      - default
+  cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.cli
+    environment:
+      - CARDANO_NODE_SOCKET_PATH=/lovelace/data/node.socket
+    depends_on:
+      - node
+    volumes:
+      - ./data:/lovelace/data
+    stdin_open: true
+    tty: true
+
+volumes:
+  data:
